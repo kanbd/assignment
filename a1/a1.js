@@ -1,9 +1,8 @@
-var state=ture;
-
-function do_shift(way){
+var state=false;
+var way='lol';
+function do_shift(){
 	
 	if(way=='right'&&state){
-		state=way;
 		var left=document.getElementById('left_box').value;
 		var right=document.getElementById('right_box').value;
 
@@ -12,7 +11,6 @@ function do_shift(way){
 				document.getElementById('right_box').value=right+left.slice(0,1);
 		}	
 	}else if(way=='left'&&state){
-		state=way;
 		var left=document.getElementById('left_box').value;
 		var right=document.getElementById('right_box').value;
 		if(right.length!=0{
@@ -22,7 +20,9 @@ function do_shift(way){
 	}
 	setTimeout(do_shift(),1000);
 }
-
+function do_dir(ways){
+	way=ways;
+}
 
 function stop(){
 
