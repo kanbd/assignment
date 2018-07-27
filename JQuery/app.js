@@ -126,12 +126,37 @@ function loadpost(){
                 }
             });
             pdiv.append(showbtn);
+
+
+            var crebtn=jQuery('<button>create comment</button>');
+            crebtn.attr('name',postlist[post].id);
+            crebtn.attr('id','crebtn_'+postlist[post].id);
+            crebtn.click(function(){
+                if(jQuery(this).html()==="create comment"){
+                    createcomment(this);
+                    jQuery(this).html("cancel");
+                }
+                else{
+                    jQuery(this).html("create comment");
+                    
+                    var com=jQuery(this).parent().find('div');
+                    
+                    for(var c in com){
+                        if(com[c].id!=undefined&&com[c].id.includes('cretdiv_'))
+                            jQuery('#'+com[c].id).empty();
+                    }
+                }
+            });
+            pdiv.append(crebtn);
+            //var thisid=postlist[post].id;
+            pdiv.append('<div id="cretdiv_'+postlist[post].id+'"></div>');
+
         }
     }
    
 
     function loadcomment(cur){
-        
+        commentlist=JSON.parse(localStorage.getItem("comments") || "[]");
         var curcomment=commentlist.filter(x => x.postId === parseInt(cur.name));
         //console.log(typeof(cur.name));
         for(var i in curcomment){
@@ -284,15 +309,58 @@ jQuery(document).on('click','#postsub',function(){
                 var com=jQuery(this).parent().find('div');
                 
                 for(var c in com){
-                    jQuery('#'+com[c].id).remove();
+                    if(com[c].id!=undefined&&com[c].id.includes('comid'))
+                            jQuery('#'+com[c].id).remove();
                 }
             }
         });
         pdiv.append(showbtn);
 
 
+        // var crebtn=jQuery('<button>show</button>');
+        // crebtn.attr('name',post.id);
+        // crebtn.attr('id','crebtn_'+post.id);
+        // crebtn.click(function(){
+        //     if(jQuery(this).html()==="create"){
+        //         loadcomment(this);
+        //         jQuery(this).html("cancel");
+        //     }
+        //     else{
+        //         jQuery(this).html("create");
+                
+        //         var com=jQuery(this).parent().find('div');
+                
+        //         for(var c in com){
+        //             jQuery('#'+com[c].id).remove();
+        //         }
+        //     }
+        // });
+        // pdiv.append(crebtn);
+        var crebtn=jQuery('<button>create comment</button>');
+        crebtn.attr('name',post.id);
+        crebtn.attr('id','crebtn_'+post.id);
+        crebtn.click(function(){
+            if(jQuery(this).html()==="create comment"){
+                createcomment(this);
+                jQuery(this).html("cancel");
+            }
+            else{
+                jQuery(this).html("create comment");
+                
+                var com=jQuery(this).parent().find('div');
+                
+                for(var c in com){
+                    if(com[c].id!=undefined&&com[c].id.includes('cretdiv_'))
+                        jQuery('#'+com[c].id).empty();
+                }
+            }
+        });
+        pdiv.append(crebtn);
+        //var thisid=postlist[post].id;
+        pdiv.append('<div id="cretdiv_'+post.id+'"></div>');
+
         function loadcomment(cur){
-        
+            commentlist=JSON.parse(localStorage.getItem("comments") || "[]");
             var curcomment=commentlist.filter(x => x.postId === parseInt(cur.name));
             //console.log(typeof(cur.name));
             for(var i in curcomment){
@@ -363,3 +431,37 @@ jQuery(document).on('click','#editsub',function(){
     }
 
 });
+
+function createcomment(curbtn){
+    var dia=jQuery('<div id="createarea"></div>');
+    dia.html(
+        `
+        <input type="text" id="cm_uid" placeholder="name" /input>
+        <input type="text" id="cm_email" placeholder="email" /input>
+        <input type="text" id="cm_dcr" placeholder="describtion" /input>
+        <button id="cmsub">submit</button>
+        `
+    );
+    dia.css({"border-width":"5px","border-style":"solid","padding":"8px","margin":"8px"});
+    //console.log(jQuery(curbtn).parent().attr("name"));
+    jQuery('#cretdiv_'+jQuery(curbtn).parent().attr("name")).append(dia);
+}
+
+jQuery(document).on('click','#cmsub',function(){
+    var commentlist=JSON.parse(localStorage.getItem("comments") || "[]");
+    var newcom={};
+    if(jQuery('#cm_uid').val()!=undefined&&jQuery('#cm_email').val()!=undefined&&jQuery('#cm_email').val()!=undefined){
+        newcom['postId']=parseInt(jQuery(this).parent().parent().parent().attr('name'));  
+        //console.log(jQuery(this).parent().parent());
+        newcom['id']=commentlist.length*2+1;
+        newcom['name']=jQuery('#cm_uid').val();
+        newcom['email']=jQuery('#cm_email').val();
+        newcom['body']=jQuery('#cm_dcr').val();
+        commentlist.push(newcom);
+        localStorage.comments=JSON.stringify(commentlist);
+        console.log("succeed");
+        console.log(newcom);
+    }else{
+        alert("Can not be empty");
+    }
+})
