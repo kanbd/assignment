@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js_2</title>
+	<style>
+		table, th, td {
+    	border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<form>
+			username:<br>
+			<input type="text" name="username"><br>
+			password:<br>
+			<input type="password" name="password"><br>
+			firstname:<br>
+			<input type="text" name="firstname"><br>
+			lastname:<br>
+			<input type="text" name="lastname"><br>
+			email:<br>
+			<input type="text" name="email"><br>
+			gender:<br>
+			male
+			<input type="radio" name="Gender" value="male" id="">
+			female
+			<input type="radio" name="Gender" value="female"><br>
+			location:<br>
+			<input type="text" name="location"><br>
+			<button type="button" name="submit" onclick="savedata()" >submit</button>
+		</form>
+	</div>
+	<table id="list_user">
+		<tr>
+			<th>username</th>
+			<th>password</th>
+			<th>firstname</th>
+			<th>lastname</th>
+			<th>email</th>
+			<th>gender</th>
+			<th>location</th>
+		</tr>
+	</table>
+
+	<script type="text/javascript" src="app.js"></script>
+</body>
+</html>
