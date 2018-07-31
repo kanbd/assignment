@@ -1,0 +1,83 @@
+body{
+	background: lightgray;
+}
+#mainbody {
+    width: 80%;
+    margin:0 auto;
+    overflow: auto;
+}
+#menu{
+	padding: 2px;
+	border-style: hidden;
+	border-radius: 5px;
+	background: gray;
+	overflow: auto;
+}
+.menuElement{
+	float: left;
+	color: white;
+	margin-left: 20px;
+}
+#postArea{
+	float: left;
+	width: 69%
+
+}
+.post{
+	border-style:hidden;
+	background: white;
+	margin-top: 6px;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.postHead{
+	color: red;
+}
+.postDescribe{
+	font-style: italic;
+	color:gray;
+}
+
+#sidebarArea{
+	float: right;
+	width: 29%;
+	margin-bottom: 8px;
+}
+
+.sidebar{
+	border-style:hidden;
+	background: white;
+	margin-top: 6px;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+#bottom{
+	clear:both;
+	padding: 20px;
+	border-style: hidden;
+	border-radius: 5px;
+	background: gray;
+	overflow: auto;
+}
+@media only screen and (max-width: 600px) {
+    #mainbody  {
+        width: 100%;
+    }
+    #sidebarArea{
+    	float: none;
+    	width: 100%;
+    }
+    #postArea{
+    	float: none;
+    	width: 100%;
+    }
+    .menuElement{
+    	float: none;
+    	text-align: center;
+    	margin-left: 0px;
+
+    }
+    
+}
