@@ -86,18 +86,65 @@ app.controller('messCtrl',function($scope){
     //console.log(curUser.name);
 });
 app.controller('mdetialCtrl',function($scope){
+    $scope.imval='important X'
     curMsg=JSON.parse(localStorage.getItem('curMsg'));
+    $scope.replyMsg=false;
     $scope.from=curMsg.sender;
     $scope.to=curMsg.recipient;
     $scope.title=curMsg.title;
     $scope.created_at=curMsg.created_at;
     $scope.description=curMsg.description;
-
+    $scope.value='reply';
     $scope.delete=function(){
         var messagelist=JSON.parse(localStorage.getItem('messages')||"[]");
         messagelist.splice(messagelist.findIndex(m=>m.created_at===curMsg.created_at),1);
         localStorage.setItem('messages',JSON.stringify(messagelist));
         window.location.href="app.html#/message";
+    }
+    $scope.reply=function(){
+        if($scope.value==='reply'){
+            $scope.value='cancel';
+            $scope.show=true;
+        }else{
+            console.log($scope);
+            $scope.value='reply';
+            $scope.show=false;
+        }
+    }
+    $scope.rsubmit=function(){
+        console.log($scope.$$childHead);
+        var newmessage={}
+        newmessage['recipient']=curMsg.sender;
+        newmessage['sender']=curMsg.recipient;
+        var dt = new Date();
+        var utcDate = dt.toUTCString();
+        newmessage['created_at']=utcDate;
+        newmessage['recipient_img']=curMsg.sender_img;
+        newmessage['sender_img']=curMsg.recipient_img;
+        newmessage['important']=0;
+        newmessage['title']=$scope.$$childHead.title1;
+        newmessage['description']=$scope.$$childHead.description1;
+        //localStorage.setItem('curUser',JSON.stringify(curUser));
+        var userlist=JSON.parse(localStorage.getItem('users')||"[]");
+        userlist.push(newmessage);
+        localStorage.setItem('users',JSON.stringify(userlist));;
+        $scope.from1=newmessage.sender;
+        $scope.to1=newmessage.recipient;
+        $scope.title1=newmessage.title;
+        $scope.created_at1=newmessage.created_at;
+        $scope.description1=newmessage.description;
+        console.log($scope);
+        $scope.replyMsg=true;
+        $scope.value='reply';
+        $scope.show=false;
+    }
+    $scope.imFn=function(){
+        if($scope.imval==='important X'){
+            $scope.imval='important V';
+        }else{
+            console.log($scope);
+            $scope.imval='important X';
+        }
     }
 });
 
