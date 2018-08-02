@@ -1,9 +1,17 @@
-<input type="text" ng-model="username"/>
-<input type="password" ng-model="password"/>
-<input type="text" ng-model="firstname"/>
-<input type="text" ng-model="lastname"/>
-<input type="email" ng-model="email"/>
-<input type="text" ng-model="phone"/>
-<input type="text" ng-model="location"/>
-<input type="button" value="submit" ng-model="sub"/><br>
-<a href="">back</a>
+username
+<input type="text" ng-model="username"/><br>
+password
+<input type="password" ng-model="password"/><br>
+firstname
+<input type="text" ng-model="firstname"/><br>
+lastname
+<input type="text" ng-model="lastname"/><br>
+email
+<input type="email" ng-model="email"/><br>
+phone
+<input type="text" ng-model="phone"/><br>
+location
+<input type="text" ng-model="location"/><br>
+<div ng-bind="errArea"></div>
+<input type="button" value="submit" ng-click="subsign()"/><br>
+<a href="#/">back</a>
