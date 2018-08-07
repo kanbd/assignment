@@ -125,9 +125,9 @@ app.controller('mdetialCtrl',function($scope){
         newmessage['title']=$scope.$$childHead.title1;
         newmessage['description']=$scope.$$childHead.description1;
         //localStorage.setItem('curUser',JSON.stringify(curUser));
-        var userlist=JSON.parse(localStorage.getItem('users')||"[]");
-        userlist.push(newmessage);
-        localStorage.setItem('users',JSON.stringify(userlist));;
+        var messages=JSON.parse(localStorage.getItem('messages')||"[]");
+        messages.push(newmessage);
+        localStorage.setItem('messages',JSON.stringify(messages));;
         $scope.from1=newmessage.sender;
         $scope.to1=newmessage.recipient;
         $scope.title1=newmessage.title;
