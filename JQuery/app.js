@@ -450,7 +450,8 @@ function createcomment(curbtn){
 jQuery(document).on('click','#cmsub',function(){
     var commentlist=JSON.parse(localStorage.getItem("comments") || "[]");
     var newcom={};
-    if(jQuery('#cm_uid').val()!=undefined&&jQuery('#cm_email').val()!=undefined&&jQuery('#cm_email').val()!=undefined){
+    console.log(this);
+    if(jQuery('#cm_uid').val()!=undefined&&jQuery('#cm_email').val()!=undefined){
         newcom['postId']=parseInt(jQuery(this).parent().parent().parent().attr('name'));  
         //console.log(jQuery(this).parent().parent());
         newcom['id']=commentlist.length*2+1;
@@ -458,6 +459,33 @@ jQuery(document).on('click','#cmsub',function(){
         newcom['email']=jQuery('#cm_email').val();
         newcom['body']=jQuery('#cm_dcr').val();
         commentlist.push(newcom);
+
+
+
+        var cdiv=jQuery('<div></div>');
+        cdiv.attr("id",'comid_'+newcom.id);
+        cdiv.attr('name',newcom.id);
+        cdiv.css({"border-width":"3px","border-style":"solid","background":"lightgray"});
+        cdiv.append('<p>'+'comment name: '+newcom.name+'</p>');
+        cdiv.append('<p>'+'email: '+newcom.email+'</p>');
+        cdiv.append('<p>'+'Description: '+newcom.body+'</p>');
+        cdiv.append('<button>like</button>')
+        cdiv.append(jQuery('<button>delete</button>').click(function(){
+            
+            // console.log(jQuery(this).parent().attr("name"));
+            // console.log(jQuery('#comid_1'));
+            for(var j in commentlist){
+                if(commentlist[j].id===parseInt(jQuery(this).parent().attr("name"))){
+                    console.log("yes");
+                    commentlist.splice(j, 1);
+                    localStorage.comments=JSON.stringify(commentlist);
+                    break;
+                }
+            }
+            jQuery(this).parent().remove('div');
+        }));
+
+        jQuery(this).parent().after(cdiv);
         localStorage.comments=JSON.stringify(commentlist);
         console.log("succeed");
         console.log(newcom);
