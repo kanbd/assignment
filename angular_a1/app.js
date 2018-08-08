@@ -74,6 +74,8 @@ app.controller('loginCtrl',function($scope){
     }
 });
 app.controller('messCtrl',function($scope){
+    LoginCheck();
+    $scope.clearFcCur=clearFcCur;
     messagelist=JSON.parse(localStorage.getItem('messages')||"[]");
     var curUser=JSON.parse(localStorage.getItem('curUser'));
     $scope.messages=messagelist.filter(a=>a.recipient===curUser.username);
@@ -84,8 +86,11 @@ app.controller('messCtrl',function($scope){
         window.location.href="app.html#/messagedetial";
     }
     //console.log(curUser.name);
+
+
 });
 app.controller('mdetialCtrl',function($scope){
+    LoginCheck();
     $scope.imval='important X'
     curMsg=JSON.parse(localStorage.getItem('curMsg'));
     $scope.replyMsg=false;
@@ -149,6 +154,7 @@ app.controller('mdetialCtrl',function($scope){
 });
 
 app.controller('proCtrl',function($scope){
+    LoginCheck();
     $scope.value='edit';
     $scope.show=false;
     var curUser=JSON.parse(localStorage.getItem('curUser'));
@@ -222,4 +228,12 @@ app.controller('homeCtrl',function($scope){
 function clearFcCur(){
     console.log("current user cleared!");
     localStorage.removeItem('curUser');
+}
+
+
+function LoginCheck(){
+    if(localStorage.getItem('curUser')===undefined||localStorage.getItem('curUser')===null){
+        window.location.href='app.html#/';
+        alert("Please login!");
+    }
 }
